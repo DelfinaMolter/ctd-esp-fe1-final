@@ -1,3 +1,4 @@
+import { useAppSelector } from '../../redux/hooks';
 import BotonFavorito from '../botones/boton-favorito.componente';
 import './tarjeta-personaje.css';
 
@@ -9,13 +10,16 @@ import './tarjeta-personaje.css';
  * 
  * @returns un JSX element 
  */
-const TarjetaPersonaje = (data) => {
+const TarjetaPersonaje = (personaje) => {
+    const storeFavoritos = useAppSelector(state => state.personaje.favoritos)
+
+    const isFavorito = storeFavoritos.find(item => item.id === personaje.personaje.id)
 
     return <div className="tarjeta-personaje">
-        <img src={data.data.image} alt={data.data.name}/>
+        <img src={personaje.personaje.image} alt={personaje.personaje.name}/>
         <div className="tarjeta-personaje-body">
-            <span>{data.data.name}</span>
-            <BotonFavorito esFavorito={false} />
+            <span>{personaje.personaje.name}</span>
+            <BotonFavorito esFavorito={isFavorito} onClick={personaje.personaje}/>
         </div>
     </div>
 }

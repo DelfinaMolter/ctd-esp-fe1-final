@@ -1,3 +1,6 @@
+
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { getPaginacion } from '../../redux/personajesSlice';
 import './paginacion.css';
 
 /**
@@ -9,11 +12,22 @@ import './paginacion.css';
  * @returns un JSX element 
  */
 const Paginacion = () => {
+    const dispatch = useAppDispatch();
+    const storePaginacion = useAppSelector(state => state.personaje.paginacion)
 
-    return <div className="paginacion">
-        <button disabled={true} className={"primary"}>Anterior</button>
-        <button disabled={false} className={"primary"}>Siguiente</button>
-    </div>
+    const prevPage = ()=>{
+        dispatch(getPaginacion(storePaginacion.prev))
+    }
+    const nextPage = ()=>{
+        dispatch(getPaginacion(storePaginacion.next))
+    }
+    
+    return (
+        <div className="paginacion">
+            <button disabled={!storePaginacion.prev} className={"primary"} onClick={() =>prevPage()}>Anterior</button>
+            <button disabled={!storePaginacion.next} className={"primary"} onClick={() =>nextPage()}>Siguiente</button>
+        </div>
+    )
 }
 
 export default Paginacion;
