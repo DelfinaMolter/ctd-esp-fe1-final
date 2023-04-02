@@ -9,11 +9,21 @@ export interface Personaje{
     origin:{
         name:string,
         url:string
-    }
+    },
     location:{
         name:string,
         url:string
-    }
+    },
     image:string,
-    espisode:string[]
+    episode:string[]
+}
+
+export interface Episode{
+    id: number,
+    name: string,
+    air_date: string,
+    episode: string,
+    characters: string[],
+    url: string,
+    created: string
 }

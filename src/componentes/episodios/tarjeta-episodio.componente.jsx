@@ -1,4 +1,5 @@
 import './tarjeta-episodio.css';
+import { useEffect, useState } from "react";
 
 /**
  * Tarjeta para cada episodio dentro de la vista de personaje.
@@ -8,13 +9,27 @@ import './tarjeta-episodio.css';
  * 
  * @returns un JSX element 
  */
-const TarjetaEpisodio = () => {
+const TarjetaEpisodio = ( urlEpisode) => {
+    const [episodio, setEpisodio] = useState('')
 
+    const apiEpisodios = async (url) => {
+        const response = await fetch(url);
+        const data = await response.json();
+        setEpisodio(data)
+        return data
+    }
+    
+
+    useEffect(() => {
+        apiEpisodios(urlEpisode.urlEpisode)
+    }, [])
+
+    
     return <div className="tarjeta-episodio">
-            <h4>Close Rick-counters of the Rick Kind</h4>
+            <h4>{episodio.name}</h4>
             <div>
-                <span>S01E01</span>
-                <span>Lanzado el: April 7, 2014</span>
+                <span>{episodio.episode}</span>
+                <span>Lanzado el: {episodio.air_date}</span>
             </div>
     </div>
 }

@@ -14,6 +14,12 @@ const apiPaginacion = async (url:string) => {
     return data
 }
 
+// const apiEpisodios = async (url:string) => {
+//     const response = await fetch(url);
+//     const data = await response.json();
+//     return data
+// }
+
 
 export const getPersonajes = createAsyncThunk(
     '/getPersonajes',
@@ -26,11 +32,18 @@ export const getPersonajes = createAsyncThunk(
 export const getPaginacion = createAsyncThunk(
     '/getPaginacion',
     async (url: string) => {
-        console.log(url)
         const response = await apiPaginacion(url)
         return response
     }
 )
+
+// export const getEpisodios = createAsyncThunk(
+//     '/getEpisodios',
+//     async (url: string) => {
+//         const response = await apiEpisodios(url)
+//         return response
+//     }
+// )
 
 interface initialType {
     busqueda: string,
@@ -39,7 +52,9 @@ interface initialType {
         next:string,
         prev:string
     },
-    favoritos: Personaje[]
+    favoritos: Personaje[],
+    selected: Personaje,
+
 }
 
 const initialState: initialType = {
@@ -49,7 +64,26 @@ const initialState: initialType = {
         next:'',
         prev:''
     },
-    favoritos:[]
+    favoritos:[],
+    selected:{
+        id: 0,
+        name: '',
+        status: '',
+        species:'',
+        type:'',
+        gender:'',
+        origin:{
+            name:'',
+            url:''
+        },
+        location:{
+            name:'',
+            url:''
+        },
+        image:'',
+        episode:[]
+    },
+
 }
 
 export const personajesSlice = createSlice({
@@ -67,6 +101,9 @@ export const personajesSlice = createSlice({
         },
         deleteAllfavoritos: (state, action) => {
             state.favoritos = action.payload
+        },
+        actionSelected: (state, action) => {
+            state.selected = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -84,7 +121,7 @@ export const personajesSlice = createSlice({
 
 })
 
-export const { actionBusqueda, addfavoritos, deletefavoritos, deleteAllfavoritos } = personajesSlice.actions
+export const { actionBusqueda, addfavoritos, deletefavoritos, deleteAllfavoritos, actionSelected } = personajesSlice.actions
 
 
 export default personajesSlice.reducer
