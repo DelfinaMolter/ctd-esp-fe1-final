@@ -6,7 +6,7 @@ const Filtros = () => {
     const dispatch = useAppDispatch()
     const valueFiltro = useAppSelector(state => state.personaje.busqueda)
 
-    const search = (e)=>{
+    const search = (e:React.ChangeEvent<HTMLInputElement>)=>{
         dispatch(actionBusqueda(e.target.value))
         dispatch(getPersonajes(e.target.value))
     }

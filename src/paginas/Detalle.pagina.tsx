@@ -33,14 +33,14 @@ const PaginaDetalle = () => {
                     <p>Planeta: {personaje.origin.name === 'unknown' ? 'desconocido': personaje.origin.name }</p>
                     <p>Genero: {personaje.gender  === 'unknown' ? 'desconocido':personaje.gender}</p>
                 </div>
-                <BotonFavorito esFavorito={isFavorito}  onClick={personaje}/>
+                <BotonFavorito esFavorito={isFavorito?true:false}  onClick={personaje}/>
             </div>
         </div>
         <h4>Lista de episodios donde apareció el personaje</h4>
         <div className={"episodios-grilla"}>
             {
                 personaje.episode.map((url,index) =>(
-                    <TarjetaEpisodio urlEpisode={url}  key={index} />
+                    <TarjetaEpisodio urlEpisode={url.toString()}  key={index} />
                 ))
             }
         </div>

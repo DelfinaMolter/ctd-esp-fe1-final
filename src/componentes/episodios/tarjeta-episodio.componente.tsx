@@ -1,5 +1,19 @@
 import './tarjeta-episodio.css';
 import { useEffect, useState } from "react";
+import { Episode } from '../../types/personaje.types';
+interface Props{
+    urlEpisode:string,
+}
+
+const inicialState:Episode = {
+    id: 0,
+    name: '',
+    air_date: '',
+    episode: '',
+    characters:[],
+    url: '',
+    created: ''
+}
 
 /**
  * Tarjeta para cada episodio dentro de la vista de personaje.
@@ -9,10 +23,10 @@ import { useEffect, useState } from "react";
  * 
  * @returns un JSX element 
  */
-const TarjetaEpisodio = ( urlEpisode) => {
-    const [episodio, setEpisodio] = useState('')
+const TarjetaEpisodio = ( {urlEpisode}:Props) => {
+    const [episodio, setEpisodio] = useState(inicialState)
 
-    const apiEpisodios = async (url) => {
+    const apiEpisodios = async (url:string) => {
         const response = await fetch(url);
         const data = await response.json();
         setEpisodio(data)
@@ -21,7 +35,7 @@ const TarjetaEpisodio = ( urlEpisode) => {
     
 
     useEffect(() => {
-        apiEpisodios(urlEpisode.urlEpisode)
+        apiEpisodios(urlEpisode)
     }, [])
 
     

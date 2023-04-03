@@ -14,12 +14,6 @@ const apiPaginacion = async (url:string) => {
     return data
 }
 
-// const apiEpisodios = async (url:string) => {
-//     const response = await fetch(url);
-//     const data = await response.json();
-//     return data
-// }
-
 
 export const getPersonajes = createAsyncThunk(
     '/getPersonajes',
@@ -36,14 +30,6 @@ export const getPaginacion = createAsyncThunk(
         return response
     }
 )
-
-// export const getEpisodios = createAsyncThunk(
-//     '/getEpisodios',
-//     async (url: string) => {
-//         const response = await apiEpisodios(url)
-//         return response
-//     }
-// )
 
 interface initialType {
     busqueda: string,
@@ -100,7 +86,7 @@ export const personajesSlice = createSlice({
             state.favoritos = state.favoritos.filter(item => item.id !== action.payload.id)
         },
         deleteAllfavoritos: (state, action) => {
-            state.favoritos = action.payload
+            state.favoritos = initialState.favoritos
         },
         actionSelected: (state, action) => {
             state.selected = action.payload

@@ -9,6 +9,7 @@ import store from "./redux/store";
 import { createRoot } from 'react-dom/client';
 
 const domNode = document.getElementById('root');
+// const domNode: HTMLElement | null = document.getElementById('root');
 const root = createRoot(domNode);
 root.render(
   <Provider store={store}>
