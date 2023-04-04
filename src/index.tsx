@@ -8,11 +8,12 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import { createRoot } from 'react-dom/client';
 
-// const rootElement: HTMLDivElement= document.querySelector('#root') as HTMLDivElement;
+const rootElement: HTMLDivElement= document.querySelector('#root') as HTMLDivElement;
 
-const domNode = document.getElementById('root');
+// const domNode = document.getElementById('root');
 // const domNode: HTMLElement | null = document.getElementById('root');
-const root = createRoot(domNode);
+// const root = createRoot(domNode);
+const root = createRoot(rootElement);
 root.render(
   <Provider store={store}>
     <React.StrictMode>

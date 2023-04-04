@@ -1,6 +1,5 @@
 import {  useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { actionSelected } from '../../redux/personajesSlice';
+import {  useAppSelector } from '../../redux/hooks';
 import { Personaje } from '../../types/personaje.types';
 import BotonFavorito from '../botones/boton-favorito.componente';
 import './tarjeta-personaje.css';
@@ -23,12 +22,10 @@ interface Props{
 const TarjetaPersonaje = ({personaje}:Props) => {
     const storeFavoritos = useAppSelector(state => state.personaje.favoritos)
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
 
     const isFavorito = storeFavoritos.find(item => item.id === personaje.id)
 
     const irAdetalle = (personaje:Personaje)=>{
-        dispatch(actionSelected(personaje));
         navigate(`/detalle/${personaje.id}`)
     }
 

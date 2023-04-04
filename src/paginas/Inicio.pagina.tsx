@@ -4,6 +4,7 @@ import Paginacion from "../componentes/paginacion/paginacion.componente";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { actionBusqueda, getPersonajes } from "../redux/personajesSlice";
 import { useEffect } from "react";
+import Errors from "../componentes/errors/errors.componente";
 
 /**
  * Esta es la pagina principal. Aquí se debera ver el panel de filtros junto con la grilla de personajes.
@@ -16,6 +17,7 @@ import { useEffect } from "react";
 const PaginaInicio = () => {
     const dispatch = useAppDispatch()
     const personajes = useAppSelector(state => state.personaje.personajes)
+    const storeError = useAppSelector(state => state.personaje.errorBusqueda)
 
     useEffect(() => {
         dispatch(getPersonajes(""))
@@ -34,8 +36,13 @@ const PaginaInicio = () => {
         </div>
         <Filtros />
         <Paginacion />
-        <GrillaPersonajes personajes={personajes}/>
-        <Paginacion />
+        {
+            storeError !== '' ? <Errors error={storeError}/> :
+            <>
+                <GrillaPersonajes personajes={personajes}/>
+                <Paginacion />
+            </>
+        }
     </div>
 }
 

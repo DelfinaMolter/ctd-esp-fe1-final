@@ -1,7 +1,7 @@
 import './boton-favorito.css';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { addfavoritos, deletefavoritos } from '../../redux/personajesSlice';
+import { useAppDispatch } from '../../redux/hooks';
 import { Personaje } from '../../types/personaje.types';
+import { favoritos } from '../../redux/personajesSlice';
 interface Props{
     esFavorito:boolean,
     onClick:Personaje 
@@ -19,14 +19,12 @@ const BotonFavorito = ({esFavorito, onClick}:Props) => {
     const src = esFavorito ? "/imagenes/star-filled.png" : "/imagenes/star.png"
 
     const dispatch =useAppDispatch();
-    const storeFavoritos = useAppSelector(state => state.personaje.favoritos)
-    
-    const favoritos = (personaje: Personaje)=>{
-        let isFavorito = storeFavoritos.find(item => item.id === personaje.id)
-        isFavorito ? dispatch(deletefavoritos(personaje)): dispatch(addfavoritos(personaje))
+
+    const favoritosAction = (personaje: Personaje)=>{
+        dispatch(favoritos(personaje))
     }
 
-    return <div className="boton-favorito" onClick={()=>favoritos(onClick)}>
+    return <div className="boton-favorito" onClick={()=>favoritosAction(onClick)}>
         <img src={src} alt={"favorito"} />
     </div>
 }

@@ -29,12 +29,8 @@ const PaginaDetalle = () => {
 
     const {id} = useParams ();
 
-    console.log(id)
     const checkParams=()=>{
-        if(personaje.id.toString() !== id){
-            dispatch(getOnePersonaje(id || ''))
-        }
-
+        dispatch(getOnePersonaje(id || ''))
     }
     
     useEffect(() => {

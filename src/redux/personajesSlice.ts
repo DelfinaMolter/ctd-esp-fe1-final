@@ -101,13 +101,14 @@ export const personajesSlice = createSlice({
         actionBusqueda: (state, action) => {
             state.busqueda = action.payload
         },
-        addfavoritos: (state, action) => {
-            state.favoritos.push(action.payload)
+        favoritos: (state, action) => {
+            if(!state.favoritos.find(item => item.id === action.payload.id)){
+                state.favoritos.push(action.payload)
+            }else{
+                state.favoritos = state.favoritos.filter(item => item.id !== action.payload.id)
+            }
         },
-        deletefavoritos: (state, action) => {
-            state.favoritos = state.favoritos.filter(item => item.id !== action.payload.id)
-        },
-        deleteAllfavoritos: (state, action) => {
+        deleteAllfavoritos: (state) => {
             state.favoritos = initialState.favoritos
         },
         actionSelected: (state, action) => {
@@ -140,7 +141,7 @@ export const personajesSlice = createSlice({
 
 })
 
-export const { actionBusqueda, addfavoritos, deletefavoritos, deleteAllfavoritos, actionSelected } = personajesSlice.actions
+export const { actionBusqueda,favoritos, deleteAllfavoritos, actionSelected } = personajesSlice.actions
 
 
 export default personajesSlice.reducer

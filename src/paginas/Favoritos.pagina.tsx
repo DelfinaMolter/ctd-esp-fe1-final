@@ -15,7 +15,7 @@ const PaginaFavoritos = () => {
     const personajesFavoritos = useAppSelector(state => state.personaje.favoritos)
 
     const eliminarTodosFavoritos =()=>{
-        dispatch(deleteAllfavoritos([]))
+        dispatch(deleteAllfavoritos())
     }
 
     return <div className="container">
