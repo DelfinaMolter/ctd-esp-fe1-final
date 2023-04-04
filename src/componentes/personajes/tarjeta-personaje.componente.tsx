@@ -4,12 +4,12 @@ import { actionSelected } from '../../redux/personajesSlice';
 import { Personaje } from '../../types/personaje.types';
 import BotonFavorito from '../botones/boton-favorito.componente';
 import './tarjeta-personaje.css';
-interface PersonajeInPersonaje{
+
+
+interface Props{
     personaje:Personaje
 }
-interface Props{
-    personaje:PersonajeInPersonaje
-}
+
 
 
 /**
@@ -25,18 +25,18 @@ const TarjetaPersonaje = ({personaje}:Props) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const isFavorito = storeFavoritos.find(item => item.id === personaje.personaje.id)
+    const isFavorito = storeFavoritos.find(item => item.id === personaje.id)
 
     const irAdetalle = (personaje:Personaje)=>{
         dispatch(actionSelected(personaje));
-        navigate('/detalle')
+        navigate(`/detalle/${personaje.id}`)
     }
 
     return <div className="tarjeta-personaje">
-        <img src={personaje.personaje.image} alt={personaje.personaje.name} onClick={()=>irAdetalle(personaje.personaje)}/>
+        <img src={personaje.image} alt={personaje.name} onClick={()=>irAdetalle(personaje)}/>
         <div className="tarjeta-personaje-body">
-            <span>{personaje.personaje.name}</span>
-            <BotonFavorito esFavorito={isFavorito?true:false} onClick={personaje.personaje}/>
+            <span>{personaje.name}</span>
+            <BotonFavorito esFavorito={isFavorito?true:false} onClick={personaje}/>
         </div>
     </div>
 }

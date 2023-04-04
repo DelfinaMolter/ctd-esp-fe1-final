@@ -5,13 +5,26 @@ const api_baseUrl = 'https://rickandmortyapi.com/api/'
 
 const apiPersonajes = async (filter:string) => {
     const response = await fetch(`${api_baseUrl}character/${filter? '?name='+ filter : ''}`);
-    const data = await response.json();
-    return data
+    if(response.ok){
+        const data = await response.json();
+        return data
+    }else{
+        throw new Error("No hay personajes con el nombre que buscas, intenta otra cosa.");
+    }
 }
 const apiPaginacion = async (url:string) => {
     const response = await fetch(url);
     const data = await response.json();
     return data
+}
+const apiOnePersonaje = async (id:string) => {
+    const response = await fetch(`${api_baseUrl}character/${id}`);
+    if(response.ok){
+        const data = await response.json();
+        return data
+    }else{
+        throw new Error("No se encontro ese Personaje");
+    }
 }
 
 
@@ -30,6 +43,13 @@ export const getPaginacion = createAsyncThunk(
         return response
     }
 )
+export const getOnePersonaje = createAsyncThunk(
+    '/getOnePersonaje',
+    async (id: string) => {
+        const response = await apiOnePersonaje(id)
+        return response
+    }
+)
 
 interface initialType {
     busqueda: string,
@@ -40,6 +60,7 @@ interface initialType {
     },
     favoritos: Personaje[],
     selected: Personaje,
+    errorBusqueda: string | undefined
 
 }
 
@@ -69,6 +90,7 @@ const initialState: initialType = {
         image:'',
         episode:[]
     },
+    errorBusqueda:''
 
 }
 
@@ -97,11 +119,22 @@ export const personajesSlice = createSlice({
             state.personajes = action.payload.results
             state.paginacion.next = action.payload.info.next
             state.paginacion.prev = action.payload.info.prev
+            state.errorBusqueda = initialState.errorBusqueda
+        })
+        builder.addCase(getPersonajes.rejected, (state, action) => {
+            state.errorBusqueda = action.error.message
         })
         builder.addCase(getPaginacion.fulfilled, (state, action) => {
             state.personajes = action.payload.results
             state.paginacion.next = action.payload.info.next
             state.paginacion.prev = action.payload.info.prev
+        })
+        builder.addCase(getOnePersonaje.fulfilled, (state, action) => {
+            state.selected = action.payload
+            state.errorBusqueda = initialState.errorBusqueda
+        })
+        builder.addCase(getOnePersonaje.rejected, (state, action) => {
+            state.errorBusqueda = action.error.message
         })
     },
 

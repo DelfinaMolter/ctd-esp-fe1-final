@@ -18,8 +18,8 @@ const GrillaPersonajes = ({personajes}:Props) => {
     
     return <div className="grilla-personajes">
         {
-            personajes && personajes.map((personaje: Personaje) => (
-                <TarjetaPersonaje personaje={{personaje}} key={personaje.id.toString()}/>
+            personajes && personajes.map((personaje) => (
+                <TarjetaPersonaje personaje={personaje} key={personaje.id.toString()}/>
             ))
         }
     </div>
