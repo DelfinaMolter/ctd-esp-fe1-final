@@ -3,8 +3,6 @@ interface Props{
     error:string | undefined;
 }
 
-
-
 /**
  * Muestra el Error.
  * 

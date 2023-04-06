@@ -4,12 +4,9 @@ import { Personaje } from '../../types/personaje.types';
 import BotonFavorito from '../botones/boton-favorito.componente';
 import './tarjeta-personaje.css';
 
-
 interface Props{
     personaje:Personaje
 }
-
-
 
 /**
  * Tarjeta para cada personaje dentro de la grilla de personajes. 

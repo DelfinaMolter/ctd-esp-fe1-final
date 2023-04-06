@@ -5,6 +5,21 @@ interface Props{
     urlEpisode:string,
 }
 
+/**
+ * @typedef {object} eposodio
+ * @property {number} id
+ * @property {string} name
+ * @property {string} air_date
+ * @property {string} episode
+ * @property {array.<string>} characters
+ * @property {string} url
+ * @property {string} created
+ */
+
+
+/**
+ * @type {episodio}
+ */
 const inicialState:Episode = {
     id: 0,
     name: '',
@@ -26,6 +41,13 @@ const inicialState:Episode = {
 const TarjetaEpisodio = ( {urlEpisode}:Props) => {
     const [episodio, setEpisodio] = useState(inicialState)
 
+    /**
+     * Funcion que le pega a la api de episodios de rick and morty
+     * https://rickandmortyapi.com/api/episoded
+     * @async
+     * @param {string} url Se ingresa la url entera que le pega a la api del episodio
+     * @returns {object} 
+     */
     const apiEpisodios = async (url:string) => {
         const response = await fetch(url);
         const data = await response.json();

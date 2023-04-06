@@ -2,6 +2,8 @@ import './boton-favorito.css';
 import { useAppDispatch } from '../../redux/hooks';
 import { Personaje } from '../../types/personaje.types';
 import { favoritos } from '../../redux/personajesSlice';
+import PropTypes from "prop-types"
+
 interface Props{
     esFavorito:boolean,
     onClick:Personaje 
@@ -30,3 +32,19 @@ const BotonFavorito = ({esFavorito, onClick}:Props) => {
 }
 
 export default BotonFavorito;
+
+BotonFavorito.propTypes ={
+    esFavorito: PropTypes.bool.isRequired,
+    onClick: PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        status: PropTypes.string,
+        species:PropTypes.string,
+        type:PropTypes.string,
+        gender:PropTypes.string,
+        origin:PropTypes.object,
+        location:PropTypes.object,
+        image:PropTypes.string,
+        episode:PropTypes.arrayOf(PropTypes.string)
+    }),
+}
